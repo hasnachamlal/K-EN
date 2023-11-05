@@ -37,9 +37,9 @@ The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. Th
 a 70×300 predictors matrix X is generated, along with a continuous response variable
 Y of length n = 70 defined as:
 
-library(mvtnorm)
+  library(mvtnorm)
 
-for (r in 1:100){
+  for (r in 1:100){
 
   r = 0.2#0.4#0.6
 
