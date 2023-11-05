@@ -20,7 +20,7 @@ The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. Th
 
 # Installation
 				
-                ## Loading required package : mvtnorm
+         ## Loading required package : mvtnorm
       	## Loading required package : Kendall
 		## Loading required package : SimDesign
 		## Loading required package : glmnet
