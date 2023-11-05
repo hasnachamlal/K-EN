@@ -19,15 +19,8 @@ This is a package implementing the K-EN approach, an efficient hybrid  method ai
 The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. The K-EN.Filter method takes the explanatory variables as input and returns the [n/(log⁡(n))]  (n=sample size) most relevant features based on their K-EN-Filter score as output, while the K-EN.Embedded method takes the KEN-Filter output dataset as input and returns the most relevant features that maximize the performance of the Elastic Net model as output.
 
 # Installation
-		To install K-EN package, run:
-
-		library(devtools)
-
-		devtools::install_github("hasnachamlal/K-EN", build_vignettes = TRUE)
-
-		library(K-EN)
-
-		## Loading required package : mvtnorm
+				
+                ## Loading required package : mvtnorm
       	## Loading required package : Kendall
 		## Loading required package : SimDesign
 		## Loading required package : glmnet
