@@ -1,0 +1,97 @@
+---
+title: "KEN_Real_DATA"
+author: "Hasna Chamlal, Asmaa Benzmane and Tayeb Ouaderhman"
+date: "04/11/2023"
+output: pdf_document
+---
+
+```{r setup}
+######################### Package loading ##########################
+library(mvtnorm)
+library(FactoMineR)
+library(Kendall)
+library(SimDesign)
+library(glmnet)
+library(dplyr) 
+library(flare)
+############################# Functions ############################## 
+#This function returns the Kendall's tau for two given vectors u,v
+kk <- function(u,v){
+  kk= Kendall(u,v)$tau[1]
+  return(kk)
+}
+
+#This function returns the indexes of relevant features
+my_funv <- function(x, thresholdm){
+  #thresholdm <- ceiling(n/log(n))
+  MaXcore <- rep(0,thresholdm)
+  for(i in 1:thresholdm){
+    MaXcore[i]= as.vector(which(x==max(x), arr.ind = T))
+    x[MaXcore[i]] = 0
+  }
+  ##return the selected feature indexes
+  MaXcore
+}
+######################### REAL DATA ANALYSIS-eyedata #########################
+
+#Initialization
+data(eyedata)
+View(x)#120x200
+View(y)#120x1
+n= nrow(x)
+p= ncol(x)
+thresholdm <- ceiling(n/log(n))
+sel_r= matrix(data= 0, 100, thresholdm)
+Kcor= c()
+x_new_r= matrix(data= 0, n, thresholdm)
+ME_ken= c()
+MSE_ken= c()
+MAE_ken= c()
+nonzero_ken= c()
+cv_errors_1=c()
+alpha_values <- seq(0.01, 0.99, by = 0.01)
+cv_errors_r <- numeric(length(alpha_values))
+for (r in 1:100) {
+  ###########Screening phase (feature relevance)##############
+  for (j in 1:p) {
+    Kcor[j] = kk(x[,j], y)
+  }
+  sel_r[r,] <- my_funv(Kcor, thresholdm= thresholdm)
+  x_new_r <- as.data.frame(x) %>% dplyr::select(all_of(sel_r[r,]))
+  
+  train_rows <- sample(1:n, .7*n, replace = F)
+  x_trainrk <- x_new_r[train_rows,]
+  y_trainrk <- y[train_rows]
+  
+  x_testrk <- x_new_r[-train_rows,]
+  y_testrk <- y[-train_rows]
+  
+  datak_r= as.data.frame(cbind(x_trainrk, y_trainrk))
+  ################## Elastic Net phase ###################
+  #PARAMETER SETTINGS
+  for (i in 1:length(alpha_values)) {
+    alpha <- alpha_values[i]
+    model <- cv.glmnet(as.matrix(x_trainrk), y_trainrk, alpha = alpha)
+    cv_errors_r[i] <- min(model$cvm)
+  }
+  alpha_min= alpha_values[which.min(cv_errors_r)]
+  x_rk <- model.matrix(y_trainrk ~ ., datak_r)[,-1]
+  (y_rk <- datak_r$y_trainrk)
+  (m_rk <- cv.glmnet(x_rk, y_rk, alpha = alpha_min))
+  # number of nonzero coef
+  nonzero_ken[r]=sum(coef(m_rk, m_rk$lambda.min) != 0)
+  #predictions and performance test
+  predicted_rk <- predict(m_rk, s=m_rk$lambda.min, newx=as.matrix(x_testrk))
+  df_test_rk= as.data.frame(cbind(x_testrk, y_testrk))
+  
+  ## Calculate the Mean Error...
+  ME_ken[r] <- mean((df_test_rk$y_testrk - as.vector(predicted_rk)))
+  ## Calculate the Mean Squared Error...
+  MSE_ken[r] <- mean((df_test_rk$y_testrk - as.vector(predicted_rk))^2)
+  ## Calculate the Mean Absolute Error...
+  MAE_ken[r] <- mean(abs(df_test_rk$y_testrk - as.vector(predicted_rk)))
+}
+
+```
+
+
