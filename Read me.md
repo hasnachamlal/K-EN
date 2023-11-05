@@ -19,14 +19,14 @@ This is a package implementing the K-EN approach, an efficient hybrid  method ai
 The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. The K-EN.Filter method takes the explanatory variables as input and returns the [n/(log⁡(n))]  (n=sample size) most relevant features based on their K-EN-Filter score as output, while the K-EN.Embedded method takes the KEN-Filter output dataset as input and returns the most relevant features that maximize the performance of the Elastic Net model as output.
 
 # Installation
-<<<<<<< HEAD
+
 		
 
 		## Loading required package : mvtnorm
-=======
+
 				
             ## Loading required package : mvtnorm
->>>>>>> 8986689fd6046078f2b36e424471307f7bce9294
+
       	## Loading required package : Kendall
 		## Loading required package : SimDesign
 		## Loading required package : glmnet
@@ -36,16 +36,27 @@ The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. Th
 ## Scenario 2
 a 70×300 predictors matrix X is generated, along with a continuous response variable
 Y of length n = 70 defined as:
+
 library(mvtnorm)
+
 for (r in 1:100){
+
   r = 0.2#0.4#0.6
+
   Sig = diag(300)
+
   Sig = r^abs(row(Sig)-col(Sig))
+
   x <- rmvnorm(n = 70, mean = rep(0,300), Sig)
+
   for (i in 1:70) {
+
     eps[i]= rnorm(1, mean=0, sd=0.05)
+
     #marginal and interaction effects
+
     y[i] <- .20*x[i,1]+.20*x[i,2]+.20*x[i,3]+.20*x[i,1]*x[i,2]+.20*x[i,2]*x[i,3]+eps[i]
+
   }
 In this case, a threshold K equal to [n/log(n)] is chosen as the number of selected features in the K-EN filter phase.
 library(FactoMineR)
