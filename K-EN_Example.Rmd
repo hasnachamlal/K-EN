@@ -7,9 +7,6 @@ output: pdf_document
 
 ```{r setup}
 ######################### Package loading ##########################
-library(devtools)
-devtools::install_github("hasnachamlal/K-EN", build_vignettes = TRUE)
-
 library(mvtnorm)
 library(FactoMineR)
 library(Kendall)
