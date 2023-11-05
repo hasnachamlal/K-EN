@@ -12,7 +12,7 @@ This is a package implementing the K-EN approach, an efficient hybrid  method ai
 
         . It has the sure screening property.
 
-        . Production of a sparse model with less number of  non-zero coefficients in the elastic net model.
+        . Production of a sparse model with less number of  non-zero coefficients in the   elastic net model.
 
         . It is robust against heavy-tailed distributions.
  
@@ -28,8 +28,11 @@ The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. Th
 		library(K-EN)
 
 		## Loading required package : mvtnorm
-    ## Loading required package : Kendall
+      	## Loading required package : Kendall
 		## Loading required package : SimDesign
 		## Loading required package : glmnet
 		## Loading required package : dplyr
-    ## Loading required package : FactoMineR
+            ## Loading required package : FactoMineR
+# Authors 
+Hansna Chamlal, Asmaa Bezmane and Tayeb Ouaderhman
+
