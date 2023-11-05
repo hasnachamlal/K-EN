@@ -33,7 +33,7 @@ The K-EN package implements two methods, namely K-EN.Filter and KEN.Embedded. Th
 		## Loading required package : dplyr
             ## Loading required package : FactoMineR
 # Quick start example
-## Scenario 2
+## Simulated Scenario 
 a 70×300 predictors matrix X is generated, along with a continuous response variable
 Y of length n = 70 defined as:
 
