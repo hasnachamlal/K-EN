@@ -179,7 +179,7 @@ The K-EN returns the frequency of active features namely V1, V2 and V3
 V1:100%, V2:99% and V3:100%
 
 # K-EN on real data
- The performance of K-EN can be tested on real data, the script "KEN_Real_DATA.rmd" has been run on eyedata (package(flare))
+ The performance of K-EN can be tested on real data, the script "KEN_Real_DATA.Rmd" has been run on eyedata (package(flare))
 
 # Authors 
 Hansna Chamlal, Asmaa Bezmane and Tayeb Ouaderhman
